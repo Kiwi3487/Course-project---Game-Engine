@@ -5,6 +5,9 @@ public class ShootCommand : Command
 {
     public void Execute()
     {
+        if (GameManager.Instance.IsEndingState)
+            return;
+        
         Camera cam = Camera.main;
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);

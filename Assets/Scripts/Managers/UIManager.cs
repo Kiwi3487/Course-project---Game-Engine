@@ -114,6 +114,8 @@ public class UIManager : MonoBehaviour
         accuracyText.text = $"Accuracy: {accuracy:F1}%";
         finalTimeText.text = $"Time: {timer:F1} seconds";
 
+        GameManager.Instance.TriggerEndState();
+        
         Time.timeScale = 0f;
     }
 
