@@ -1,3 +1,4 @@
+using Observer;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -7,6 +8,7 @@ public class Target : MonoBehaviour
     public void OnHit()
     {
         GameManager.Instance.AddScore(pointValue);
+        TargetCalls.TargetHit();
         Destroy(gameObject);
     }
 }

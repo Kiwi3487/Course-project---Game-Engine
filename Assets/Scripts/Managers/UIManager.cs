@@ -1,3 +1,4 @@
+using Observer;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    
+
     [Header("UI Elements")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
@@ -22,27 +23,44 @@ public class UIManager : MonoBehaviour
     private bool gameOver;
     private int totalClicks;
     private int successfulHits;
+    
+    private System.Action onHitAction;
+    private System.Action onMissAction;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
-        {
             Destroy(Instance.gameObject);
-        }
 
         Instance = this;
+        
+        onHitAction = () => RegisterClick(true);
+        onMissAction = () => RegisterClick(false);
+    }
+
+    private void OnEnable()
+    {
+        TargetCalls.OnTargetHit += onHitAction;
+        TargetCalls.OnTargetMiss += onMissAction;
+    }
+
+    private void OnDisable()
+    {
+        TargetCalls.OnTargetHit -= onHitAction;
+        TargetCalls.OnTargetMiss -= onMissAction;
     }
 
     private void Start()
     {
         if (restartButton != null)
             restartButton.onClick.AddListener(RestartGame);
-        
+
         Time.timeScale = 1f;
         timer = 0f;
         gameOver = false;
         totalClicks = 0;
         successfulHits = 0;
+
         endPanel.SetActive(false);
         gameScoreText.SetActive(true);
         gameTimeText.SetActive(true);
@@ -72,8 +90,7 @@ public class UIManager : MonoBehaviour
     public void RegisterClick(bool hit)
     {
         totalClicks++;
-        if (hit)
-            successfulHits++;
+        if (hit) successfulHits++;
     }
 
     public void CheckGameEnd(int score)
@@ -85,7 +102,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void ShowEndPanel()
+    private void ShowEndPanel()
     {
         endPanel.SetActive(true);
         gameScoreText.SetActive(false);
@@ -100,7 +117,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    void RestartGame()
+    private void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

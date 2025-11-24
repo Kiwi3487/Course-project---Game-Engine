@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Observer;
 
 public class TargetSpawner : MonoBehaviour
 {
@@ -11,6 +12,15 @@ public class TargetSpawner : MonoBehaviour
     void Start()
     {
         InitializeSpawning();
+    }
+    private void OnEnable()
+    {
+        TargetCalls.OnTargetHit += SpawnTarget;
+    }
+
+    private void OnDisable()
+    {
+        TargetCalls.OnTargetHit -= SpawnTarget;
     }
     
     public void InitializeSpawning()

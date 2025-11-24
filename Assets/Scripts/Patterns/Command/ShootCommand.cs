@@ -1,3 +1,4 @@
+using Observer;
 using UnityEngine;
 
 public class ShootCommand : Command
@@ -18,6 +19,9 @@ public class ShootCommand : Command
                 hitSomething = true;
             }
         }
+        
+        if (!hitSomething)
+            TargetCalls.TargetMiss();
         
         UIManager.Instance.RegisterClick(hitSomething);
     }
