@@ -4,10 +4,9 @@ public enum TargetType { Easy, Hard }
 
 public class TargetFactory : MonoBehaviour
 {
-    public GameObject easyTargetPrefab;
-    public GameObject hardTargetPrefab;
-
-    public GameObject CreateTarget(TargetType type, Vector3 position)
+    //public GameObject easyTargetPrefab;
+    //public GameObject hardTargetPrefab;
+    /*public GameObject CreateTarget(TargetType type, Vector3 position)
     {
         GameObject prefab = null;
 
@@ -22,5 +21,16 @@ public class TargetFactory : MonoBehaviour
         }
 
         return Instantiate(prefab, position, Quaternion.identity);
+    }*/
+    public string easyTag = "EasyTarget";
+    public string hardTag = "HardTarget";
+    
+    public GameObject CreateTarget(TargetType type, Vector3 position)
+    {
+        string selectedTag = (type == TargetType.Easy) ? easyTag : hardTag;
+
+        GameObject obj = ObjectPooling.Instance.SpawnFromPool(selectedTag, position, Quaternion.identity);
+
+        return obj;
     }
 }

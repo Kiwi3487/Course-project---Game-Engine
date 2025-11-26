@@ -4,11 +4,12 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     public int pointValue = 10;
-
+    
     public void OnHit()
     {
         GameManager.Instance.AddScore(pointValue);
         TargetCalls.TargetHit();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
