@@ -3338,10 +3338,10 @@ MonoBehaviour:
   pools:
   - tag: EasyTarget
     prefab: {fileID: 8885327574846859124, guid: fee04eff46290de4c83b3197129c1f28, type: 3}
-    size: 5
+    size: 20
   - tag: HardTarget
     prefab: {fileID: 5755988216993341506, guid: 4623f84d8ef9713409131c57f0b6a8e0, type: 3}
-    size: 5
+    size: 20
 --- !u!4 &2068467312
 Transform:
   m_ObjectHideFlags: 0
