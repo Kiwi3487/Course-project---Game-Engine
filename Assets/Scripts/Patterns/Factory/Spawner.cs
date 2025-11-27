@@ -35,7 +35,7 @@ public class TargetSpawner : MonoBehaviour
     private void HandleTargetHit()
     {
         activeTargets.RemoveAll(t => t == null || !t.activeSelf);
-        
+
         if (activeTargets.Count < maxTargets)
             SpawnTarget();
     }
@@ -44,7 +44,8 @@ public class TargetSpawner : MonoBehaviour
     {
         activeTargets.RemoveAll(t => t == null || !t.activeSelf);
 
-        while (activeTargets.Count < maxTargets)
+        // Only spawn one per frame, not a while loop
+        if (activeTargets.Count < maxTargets)
             SpawnTarget();
     }
 
@@ -58,12 +59,14 @@ public class TargetSpawner : MonoBehaviour
             Random.Range(4, 12));
 
         GameObject target = factory.CreateTarget(type, pos);
-        target.transform.localScale = Vector3.one;
+        
 
-        if (type == TargetType.Easy)
-            target.transform.localScale *= Random.Range(1.4f, 2.1f);
-        else
-            target.transform.localScale *= Random.Range(0.5f, 1f);
+        if (target == null)
+            return;
+
+        target.transform.localScale = Vector3.one *
+                                      (type == TargetType.Easy ? Random.Range(1.4f, 2.1f)
+                                          : Random.Range(0.5f, 1f));
 
         activeTargets.Add(target);
     }

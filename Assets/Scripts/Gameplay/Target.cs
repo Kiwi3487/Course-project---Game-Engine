@@ -9,7 +9,7 @@ public class Target : MonoBehaviour
     {
         GameManager.Instance.AddScore(pointValue);
         TargetCalls.TargetHit();
-        //Destroy(gameObject);
-        gameObject.SetActive(false);
+        ObjectPooling.Instance.ReturnToPool(gameObject.tag, gameObject);
     }
+
 }

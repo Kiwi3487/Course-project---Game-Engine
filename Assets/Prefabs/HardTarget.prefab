@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2371239291379315765}
   m_Layer: 0
   m_Name: HardTarget
-  m_TagString: Untagged
+  m_TagString: HardTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

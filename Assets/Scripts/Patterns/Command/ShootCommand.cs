@@ -9,23 +9,24 @@ public class ShootCommand : Command
             return;
         
         Camera cam = Camera.main;
-
+        
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         bool hitSomething = false;
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Target target = hit.collider.GetComponent<Target>();
+            Target target = hit.collider.GetComponentInParent<Target>();
+
             if (target != null)
             {
                 target.OnHit();
                 hitSomething = true;
             }
         }
-        
+
         if (!hitSomething)
             TargetCalls.TargetMiss();
-        
+
         UIManager.Instance.RegisterClick(hitSomething);
     }
 }

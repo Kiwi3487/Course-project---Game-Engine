@@ -19,7 +19,7 @@ public class ObjectPooling : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
+        
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         foreach (Pool pool in pools)
@@ -39,13 +39,24 @@ public class ObjectPooling : MonoBehaviour
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            return null;
+        }
 
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.SetPositionAndRotation(position, rotation);
+        if (poolDictionary[tag].Count == 0)
+        {
+            return null;
+        }
+        GameObject obj = poolDictionary[tag].Dequeue();
+        obj.transform.SetPositionAndRotation(position, rotation);
+        obj.SetActive(true);
+        return obj;
+    }
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
-
-        return objectToSpawn;
+    public void ReturnToPool(string tag, GameObject obj)
+    {
+        obj.SetActive(false);
+        poolDictionary[tag].Enqueue(obj);
     }
 }
