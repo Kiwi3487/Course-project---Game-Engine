@@ -65,4 +65,4 @@ Easy targets – larger in size, easier to hit.
 Hard targets – smaller, harder to hit.
 The total targets start at 14 and reduces to 7 as the game goes on.
 
-https://youtu.be/ZSf3RxE24Ac
+[https://youtu.be/ZSf3RxE24Ac](https://youtu.be/RPsd_N7MrAA)
